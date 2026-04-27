@@ -22,8 +22,8 @@
     - name: update Protected Mode Yes-->No
       ansible.builtin.lineinfile:
         path: /etc/redis/redis.conf
-        regexp: "127.0.0.0"
-        line: "0.0.0.0"
+        regexp: "protected-mode"
+        line: protected-mode no
 
     - name: enable and start service
       ansible.builtin.service:
