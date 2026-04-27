@@ -15,7 +15,8 @@
         executable: pip3.9.25
       loop:
         - cryptography
-        -PyMySQL
+        - PyMySQL
+        
     - name: create app directory
       ansible.builtin.file:
         path: /app
