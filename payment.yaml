@@ -1,8 +1,8 @@
-- name: payment app
-  hosts: payment
+- name: conigure payment server
   become: yes
+  hosts: payment
   tasks:
-    - name: Install packages
+    - name: install python3 packages
       ansible.builtin.dnf:
         name: "{{ item }}"
         state: installed
@@ -11,24 +11,24 @@
         - gcc
         - python3-devel
 
-    - name: Create a user 'roboshop' with a home directory
+    - name: create app directory
+      ansible.builtin.file:
+        path: /app
+        state: directory
+
+    - name: create roboshop system user
       ansible.builtin.user:
         name: roboshop
         shell: /sbin/nologin
         system: true
         home: /app
 
-    - name: create app directory
-      ansible.builtin.file:
-        path: /app
-        state: directory
-
-    - name: Download a file
+    - name: download payment code
       ansible.builtin.get_url:
         url: https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip
         dest: /tmp/payment.zip
 
-    - name: unzip payment app
+    - name: extract payment code
       ansible.builtin.unarchive:
         src: /tmp/payment.zip
         dest: /app
@@ -41,7 +41,7 @@
       args:
         chdir: /app
 
-    - name: copy payment service to directory
+    - name: copy payment service
       ansible.builtin.copy:
         src: payment.service
         dest: /etc/systemd/system/payment.service
@@ -50,7 +50,7 @@
       ansible.builtin.systemd_service:
         daemon_reload: true
 
-    - name: service enable & restart
+    - name: enable and start payment
       ansible.builtin.service:
         name: payment
         state: started
