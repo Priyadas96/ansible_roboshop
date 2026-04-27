@@ -4,8 +4,8 @@
   tasks:
     - name: copy repo to directory
       ansible.builtin.copy:
-      src: rabbitmq.repo
-      dest: /etc/yum.repos.d/rabbitmq.repo
+        src: rabbitmq.repo
+        dest: /etc/yum.repos.d/rabbitmq.repo
 
     - name: install rabbitmq
       ansible.builtin.dnf:
