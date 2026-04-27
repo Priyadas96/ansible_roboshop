@@ -37,7 +37,7 @@
     - name: install dependencies
       ansible.builtin.pip:
         requirements: requirements.txt
-        executables: pip3.9
+        executable: pip3.9
       args:
         chkdir: /app
 
