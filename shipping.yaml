@@ -16,7 +16,7 @@
       loop:
         - cryptography
         - PyMySQL
-        
+
     - name: create app directory
       ansible.builtin.file:
         path: /app
@@ -80,11 +80,11 @@
         state: import
         target: "{{ item }}"
       loop:
-      - /app/db/schema.sql
-      - /app/db/app-user.sql
-      - /app/db/master-data.sql
-    
+        - /app/db/schema.sql
+        - /app/db/app-user.sql
+        - /app/db/master-data.sql
+
     - name: restart shipping
       ansible.builtin.service:
-      state: restarted
-      name: shipping
+        state: restarted
+        name: shipping
